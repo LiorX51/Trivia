@@ -1,0 +1,145 @@
+﻿<Window x:Class="client.RoomMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:client"
+        mc:Ignorable="d"
+        Title="Trivia Client" Height="400" Width="600">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="RoundedButtonsStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#EAB01E"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#EAB01E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#F1CA68"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#F1CA68"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#1A1A1D">
+        <Button Style="{DynamicResource RoundedButtonsStyle2}" x:Name="btCreateRoom" Content="Create a new room" 
+                HorizontalAlignment="Center" Margin="0,100,0,0" 
+                VerticalAlignment="Top" FontSize="32" Width="360"
+                FontFamily="Impact" Background="White"
+                 Visibility="Visible" Click="btCreateRoom_Click"/>
+        <Button x:Name="btLogRoom" Content="Login to a room" 
+                HorizontalAlignment="Center" Margin="0,200,0,0" 
+                VerticalAlignment="Top" FontSize="32" Width="360"
+                FontFamily="Impact" Background="White"
+                Visibility="Visible" Click="btLogRoom_Click" Style="{DynamicResource RoundedButtonsStyle2}"/>
+        <Button x:Name="btBack2" Content="Back" 
+                HorizontalAlignment="Center" Margin="0,320,0,0" 
+                VerticalAlignment="Top" FontSize="16" Width="90" FontFamily="Impact"
+                Background="White" Click="btBack2_Click"
+                Visibility="Visible"/>
+        <TextBox x:Name="tbRoomName" HorizontalAlignment="Center"
+                 Margin="0,100,0,0" Text="Room name" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="300" Opacity="0.1"
+                 Visibility="Collapsed" FontSize="24" Background="Black" 
+                 Foreground="White"/>
+        <Label x:Name="lblQuestionTime" Content="Question time" HorizontalAlignment="Left" 
+               Margin="150,150,0,0" VerticalAlignment="Top" Foreground="White" 
+               FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblQtime" Content="60" HorizontalAlignment="Left" 
+            Margin="300,150,0,0" VerticalAlignment="Top" Foreground="White" 
+            FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblMaxPlayers" Content="Max players" HorizontalAlignment="Left" 
+            Margin="150,200,0,0" VerticalAlignment="Top" Foreground="White" 
+            FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblMaxPlayersNum" Content="4" HorizontalAlignment="Left" 
+            Margin="300,200,0,0" VerticalAlignment="Top" Foreground="White" 
+            FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblQcount" Content="Question count" HorizontalAlignment="Left" 
+            Margin="150,250,0,0" VerticalAlignment="Top" Foreground="White" 
+            FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblQcountNum" Content="4" HorizontalAlignment="Left" 
+            Margin="300,250,0,0" VerticalAlignment="Top" Foreground="White" 
+            FontSize="16" Visibility="Collapsed"/>
+        <Label x:Name="lblServer" Content="" HorizontalAlignment="Left" Margin="10,10,0,0"
+                 Background="{x:Null}" VerticalAlignment="Top" 
+               Foreground="White"/>
+        <Button x:Name="btnConfirm" Content="Confirm" 
+                HorizontalAlignment="Left" Margin="150,300,0,0" 
+                VerticalAlignment="Top" FontSize="16" Width="100"
+                Visibility="Collapsed" Click="btnConfirm_Click"/>
+        <Button x:Name="btnBack" Content="Back" 
+                HorizontalAlignment="Left" Margin="350,300,0,0" 
+                VerticalAlignment="Top" FontSize="16" Width="100"
+                Visibility="Collapsed" Click="btnBack_Click"/>
+        <Label x:Name="lblLoggedAs" Content="Logged as: " 
+               HorizontalAlignment="Center" Margin="0,18,0,0"
+               VerticalAlignment="Top" Background="White" 
+               FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="btnQtimeDown" Content="Down" 
+            HorizontalAlignment="Left" Margin="350,153,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnQtimeDown_Click"/>
+        <Button x:Name="btnQtimeUp" Content="Up" 
+            HorizontalAlignment="Left" Margin="400,153,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnQtimeUp_Click"/>
+        <Button x:Name="btnMaxPlayersDown" Content="Down" 
+            HorizontalAlignment="Left" Margin="350,203,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnMaxPlayersDown_Click"/>
+        <Button x:Name="btnMaxPlayersUp" Content="Up" 
+            HorizontalAlignment="Left" Margin="400,203,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnMaxPlayersUp_Click"/>
+        <Button x:Name="btnQcountDown" Content="Down" 
+            HorizontalAlignment="Left" Margin="350,253,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnQcountDown_Click"/>
+        <Button x:Name="btnQcountUp" Content="Up" 
+            HorizontalAlignment="Left" Margin="400,253,0,0" 
+            VerticalAlignment="Top" FontSize="16" Width="50"
+            Visibility="Collapsed" Click="btnQcountUp_Click"/>
+    </Grid>
+</Window>
